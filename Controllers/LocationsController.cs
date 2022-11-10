@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HR_API.Models;
+using System.Diagnostics.Metrics;
 
 namespace HR_API.Controllers;
 
 [Route("api/locations")]
-[ApiController]
+// [ApiController]
 public class LocationsController : ControllerBase
 {
-    private readonly sample_hr_databaseContext _context;
+    private readonly IHrDatabaseContext _context;
 
-    public LocationsController(sample_hr_databaseContext context)
+    public LocationsController(IHrDatabaseContext context)
     {
         _context = context;
     }
@@ -45,7 +46,7 @@ public class LocationsController : ControllerBase
             return BadRequest();
         }
 
-        _context.Entry(location).State = EntityState.Modified;
+        _context.MarkAsModified(location);
 
         try
         {

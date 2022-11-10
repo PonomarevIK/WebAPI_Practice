@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HR_API.Models;
+using System.Diagnostics.Metrics;
 
 namespace HR_API.Controllers;
 
 [Route("api/departments")]
-[ApiController]
+// [ApiController]
 public class DepartmentsController : ControllerBase
 {
-    private readonly sample_hr_databaseContext _context;
+    private readonly IHrDatabaseContext _context;
 
-    public DepartmentsController(sample_hr_databaseContext context)
+    public DepartmentsController(IHrDatabaseContext context)
     {
         _context = context;
     }
@@ -45,7 +46,7 @@ public class DepartmentsController : ControllerBase
             return BadRequest();
         }
 
-        _context.Entry(department).State = EntityState.Modified;
+        _context.MarkAsModified(department);
 
         try
         {

@@ -3,18 +3,17 @@ using HR_API.Models;
 
 namespace HR_API;
 
-public partial class sample_hr_databaseContext : DbContext
+public partial class HrDatabaseContext : DbContext, IHrDatabaseContext
 {
-    public sample_hr_databaseContext()
+    public HrDatabaseContext()
     {
         Database.EnsureCreated();
     }
 
-    public sample_hr_databaseContext(DbContextOptions<sample_hr_databaseContext> options) : base(options)
+    public HrDatabaseContext(DbContextOptions<HrDatabaseContext> options) : base(options)
     {
         Database.EnsureCreated();
     }
-
     public virtual DbSet<Country>    Countries { get; set; } = null!;
     public virtual DbSet<Department> Departments { get; set; } = null!;
     public virtual DbSet<Dependent>  Dependents { get; set; } = null!;
@@ -22,14 +21,6 @@ public partial class sample_hr_databaseContext : DbContext
     public virtual DbSet<Job>        Jobs { get; set; } = null!;
     public virtual DbSet<Location>   Locations { get; set; } = null!;
     public virtual DbSet<Region>     Regions { get; set; } = null!;
-
-    //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    //{
-        //if (!optionsBuilder.IsConfigured)
-        //{
-        //    optionsBuilder.UseSqlServer("Server=(localdb)\\mssqllocaldb;Database=sample_hr_database;Trusted_Connection=True;");
-        //}
-    //}
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -236,4 +227,13 @@ public partial class sample_hr_databaseContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+
+    public void MarkAsModified<T>(T item)
+    {
+        if (item != null)
+        {
+            Entry(item).State = EntityState.Modified;
+        }
+    }
 }

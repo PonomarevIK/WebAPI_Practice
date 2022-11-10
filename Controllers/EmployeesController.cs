@@ -1,16 +1,17 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HR_API.Models;
+using Microsoft.CodeAnalysis;
 
 namespace HR_API.Controllers;
 
 [Route("api/employees")]
-[ApiController]
+// [ApiController]
 public class EmployeesController : ControllerBase
 {
-    private readonly sample_hr_databaseContext _context;
+    private readonly IHrDatabaseContext _context;
 
-    public EmployeesController(sample_hr_databaseContext context)
+    public EmployeesController(IHrDatabaseContext context)
     {
         _context = context;
     }
@@ -45,7 +46,7 @@ public class EmployeesController : ControllerBase
             return BadRequest();
         }
 
-        _context.Entry(employee).State = EntityState.Modified;
+        _context.MarkAsModified(employee);
 
         try
         {

@@ -5,12 +5,12 @@ using HR_API.Models;
 namespace HR_API.Controllers;
 
 [Route("api/jobs")]
-[ApiController]
+// [ApiController]
 public class JobsController : ControllerBase
 {
-    private readonly sample_hr_databaseContext _context;
+    private readonly IHrDatabaseContext _context;
 
-    public JobsController(sample_hr_databaseContext context)
+    public JobsController(IHrDatabaseContext context)
     {
         _context = context;
     }
@@ -45,7 +45,7 @@ public class JobsController : ControllerBase
             return BadRequest();
         }
 
-        _context.Entry(job).State = EntityState.Modified;
+        _context.MarkAsModified(job);
 
         try
         {

@@ -5,12 +5,12 @@ using HR_API.Models;
 namespace HR_API.Controllers;
 
 [Route("api/regions")]
-[ApiController]
+// [ApiController]
 public class RegionsController : ControllerBase
 {
-    private readonly sample_hr_databaseContext _context;
+    private readonly IHrDatabaseContext _context;
 
-    public RegionsController(sample_hr_databaseContext context)
+    public RegionsController(IHrDatabaseContext context)
     {
         _context = context;
     }
@@ -45,7 +45,7 @@ public class RegionsController : ControllerBase
             return BadRequest();
         }
 
-        _context.Entry(region).State = EntityState.Modified;
+        _context.MarkAsModified(region);
 
         try
         {

@@ -5,12 +5,12 @@ using HR_API.Models;
 namespace HR_API.Controllers;
 
 [Route("api/dependents")]
-[ApiController]
+// [ApiController]
 public class DependentsController : ControllerBase
 {
-    private readonly sample_hr_databaseContext _context;
+    private readonly IHrDatabaseContext _context;
 
-    public DependentsController(sample_hr_databaseContext context)
+    public DependentsController(IHrDatabaseContext context)
     {
         _context = context;
     }
@@ -45,7 +45,7 @@ public class DependentsController : ControllerBase
             return BadRequest();
         }
 
-        _context.Entry(dependent).State = EntityState.Modified;
+        _context.MarkAsModified(dependent);
 
         try
         {
