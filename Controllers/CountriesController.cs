@@ -17,9 +17,9 @@ public class CountriesController : ControllerBase
 
     // GET: api/Countries
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Country>>> GetCountries()
+    public Task<List<Country>> GetCountries()
     {
-        return await _context.Countries.ToListAsync();
+        return _context.Countries.ToListAsync();
     }
 
     // GET: api/Countries/UK

@@ -18,9 +18,9 @@ public class EmployeesController : ControllerBase
 
     // GET: api/Employees
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Employee>>> GetEmployees()
+    public Task<List<Employee>> GetEmployees()
     {
-        return await _context.Employees.ToListAsync();
+        return _context.Employees.ToListAsync();
     }
 
     // GET: api/Employees/5

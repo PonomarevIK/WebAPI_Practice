@@ -18,9 +18,9 @@ public class LocationsController : ControllerBase
 
     // GET: api/Locations
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Location>>> GetLocations()
+    public Task<List<Location>> GetLocations()
     {
-        return await _context.Locations.ToListAsync();
+        return _context.Locations.ToListAsync();
     }
 
     // GET: api/Locations/5

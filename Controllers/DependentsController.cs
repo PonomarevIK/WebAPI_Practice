@@ -17,9 +17,9 @@ public class DependentsController : ControllerBase
 
     // GET: api/Dependents
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Dependent>>> GetDependents()
+    public Task<List<Dependent>> GetDependents()
     {
-        return await _context.Dependents.ToListAsync();
+        return _context.Dependents.ToListAsync();
     }
 
     // GET: api/Dependents/5

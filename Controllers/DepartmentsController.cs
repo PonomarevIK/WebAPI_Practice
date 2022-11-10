@@ -18,9 +18,9 @@ public class DepartmentsController : ControllerBase
 
     // GET: api/Departments
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Department>>> GetDepartments()
+    public Task<List<Department>> GetDepartments()
     {
-        return await _context.Departments.ToListAsync();
+        return _context.Departments.ToListAsync();
     }
 
     // GET: api/Departments/5

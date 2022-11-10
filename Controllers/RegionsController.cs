@@ -17,9 +17,9 @@ public class RegionsController : ControllerBase
 
     // GET: api/Regions
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<Region>>> GetRegions()
+    public Task<List<Region>> GetRegions()
     {
-        return await _context.Regions.ToListAsync();
+        return _context.Regions.ToListAsync();
     }
 
     // GET: api/Regions/5
